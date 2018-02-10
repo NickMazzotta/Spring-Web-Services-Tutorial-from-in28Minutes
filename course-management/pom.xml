@@ -71,6 +71,7 @@
 	                </sources>
 	                <outputDirectory>${project.basedir}/target/generated-sources/jaxb</outputDirectory>
 	                <clearOutputDir>false</clearOutputDir>
+	                <packageName>com.generated-sources.jaxb</packageName>
 	            </configuration>
 	        </plugin>
 		</plugins>
