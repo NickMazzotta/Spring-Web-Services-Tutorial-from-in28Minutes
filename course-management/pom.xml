@@ -67,11 +67,10 @@
 	            </executions>
 	            <configuration>
 	                <sources>
-	                	<source>${project.basedir}/src/main/resources/xsd</source>
+	                	<source>${project.basedir}/src/main/resources/xsd/course-details.xsd</source>
 	                </sources>
-	                <outputDirectory>${project.basedir}/target/generated-sources/jaxb</outputDirectory>
-	                <clearOutputDir>false</clearOutputDir>
-	                <packageName>com.generated-sources.jaxb</packageName>
+	                <outputDirectory>${project.basedir}/target/generated-sources/xjc</outputDirectory>
+	                <packageName>com.in28minutes.courses</packageName>
 	            </configuration>
 	        </plugin>
 		</plugins>
