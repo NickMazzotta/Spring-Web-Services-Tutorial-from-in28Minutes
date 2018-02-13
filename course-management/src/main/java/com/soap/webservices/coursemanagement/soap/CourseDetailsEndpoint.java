@@ -12,7 +12,7 @@ import com.in28minutes.courses.GetCourseDetailsResponse;
 @Endpoint
 public class CourseDetailsEndpoint {
 
-	@PayloadRoot(namespace="http://in28minutes.com/courses", localPart="GetCourseDetailsResponse")
+	@PayloadRoot(namespace="http://in28minutes.com/courses", localPart="GetCourseDetailsRequest")
 	@ResponsePayload
 	public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
 		GetCourseDetailsResponse response = new GetCourseDetailsResponse();
