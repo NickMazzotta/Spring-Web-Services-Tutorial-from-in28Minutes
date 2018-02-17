@@ -1,12 +1,12 @@
 package com.soap.webservices.coursemanagement.soap.bean;
 
-public class Course {
+public class CourseBean {
 
 	private int id;
 	private String name;
 	private String description;
 	
-	public Course(int id, String name, String description) {
+	public CourseBean(int id, String name, String description) {
 		super();
 		this.id = id;
 		this.name = name;

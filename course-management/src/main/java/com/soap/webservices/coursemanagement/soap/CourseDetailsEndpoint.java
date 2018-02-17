@@ -15,7 +15,8 @@ import com.in28minutes.courses.GetAllCourseDetailsRequest;
 import com.in28minutes.courses.GetAllCourseDetailsResponse;
 import com.in28minutes.courses.GetCourseDetailsRequest;
 import com.in28minutes.courses.GetCourseDetailsResponse;
-import com.soap.webservices.coursemanagement.soap.bean.Course;
+import com.soap.webservices.coursemanagement.soap.bean.CourseBean;
+import com.soap.webservices.coursemanagement.soap.bean.StatusBean;
 import com.soap.webservices.coursemanagement.soap.service.CourseDetailsService;
 
 @Endpoint
@@ -28,7 +29,7 @@ public class CourseDetailsEndpoint {
 	@ResponsePayload
 	public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
 		
-		Course course = service.findById(request.getId());
+		CourseBean course = service.findById(request.getId());
 		
 		return mapCourseDetails(course);
 	}
@@ -37,7 +38,7 @@ public class CourseDetailsEndpoint {
 	@ResponsePayload
 	public GetAllCourseDetailsResponse processAllCourseDetailsRequest(@RequestPayload GetAllCourseDetailsRequest request) {
 		
-		List<Course> courses = service.findAll();
+		List<CourseBean> courses = service.findAll();
 		
 		return mapAllCourseDetails(courses);
 	}
@@ -46,25 +47,31 @@ public class CourseDetailsEndpoint {
 	@ResponsePayload
 	public DeleteCourseDetailsResponse processDeleteCourseDetailsRequest(@RequestPayload DeleteCourseDetailsRequest request) {
 		
-		int status = service.deleteById(request.getId());
+		StatusBean status = service.deleteById(request.getId());
 		
 		return mapDelete(status);
 	}
 
-	private DeleteCourseDetailsResponse mapDelete(int status) {
+	private DeleteCourseDetailsResponse mapDelete(StatusBean status) {
 		DeleteCourseDetailsResponse response = new DeleteCourseDetailsResponse();
-		response.setStatus(status);
+		response.setStatus(mapStatus(status));
 		return response;
 	}
 
-	private GetCourseDetailsResponse mapCourseDetails(Course course) {
+	private com.in28minutes.courses.Status mapStatus(StatusBean status) {
+		if(status==StatusBean.FAILURE)
+			return com.in28minutes.courses.Status.FAILURE;
+		return com.in28minutes.courses.Status.SUCCESS;
+	}
+
+	private GetCourseDetailsResponse mapCourseDetails(CourseBean course) {
 		GetCourseDetailsResponse response = new GetCourseDetailsResponse();
 		CourseDetails courseDetails = mapCourse(course);
 		response.setCourseDetails(courseDetails);
 		return response;
 	}
 
-	private CourseDetails mapCourse(Course course) {
+	private CourseDetails mapCourse(CourseBean course) {
 		CourseDetails courseDetails = new CourseDetails();
 		courseDetails.setId(course.getId());
 		courseDetails.setName(course.getName());
@@ -72,10 +79,10 @@ public class CourseDetailsEndpoint {
 		return courseDetails;
 	}
 	
-	private GetAllCourseDetailsResponse mapAllCourseDetails(List<Course> courses) {
+	private GetAllCourseDetailsResponse mapAllCourseDetails(List<CourseBean> courses) {
 		
 		GetAllCourseDetailsResponse response = new GetAllCourseDetailsResponse();
-		for(Course course:courses) {
+		for(CourseBean course:courses) {
 			CourseDetails mapCourse = mapCourse(course);
 			response.getCourseDetails().add(mapCourse);
 		}

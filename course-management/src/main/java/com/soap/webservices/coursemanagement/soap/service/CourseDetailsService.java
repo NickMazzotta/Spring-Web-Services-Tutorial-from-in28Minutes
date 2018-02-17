@@ -6,30 +6,31 @@ import java.util.Iterator;
 
 import org.springframework.stereotype.Component;
 
-import com.soap.webservices.coursemanagement.soap.bean.Course;
+import com.soap.webservices.coursemanagement.soap.bean.CourseBean;
+import com.soap.webservices.coursemanagement.soap.bean.StatusBean;
 
 @Component
 public class CourseDetailsService {
 	
-	private static List<Course> courses = new ArrayList<>();
+	private static List<CourseBean> courses = new ArrayList<>();
 	
 	static {
-		Course course1 = new Course(1, "Spring", "10 Steps");
+		CourseBean course1 = new CourseBean(1, "Spring", "10 Steps");
 		courses.add(course1);
 		
-		Course course2 = new Course(2, "Spring MVC", "10 Examples");
+		CourseBean course2 = new CourseBean(2, "Spring MVC", "10 Examples");
 		courses.add(course2);
 		
-		Course course3 = new Course(3, "Spring Boot", "4 Steps");
+		CourseBean course3 = new CourseBean(3, "Spring Boot", "4 Steps");
 		courses.add(course3);
 		
-		Course course4 = new Course(4, "Maven", "5 Steps");
+		CourseBean course4 = new CourseBean(4, "Maven", "5 Steps");
 		courses.add(course4);
 	}
 
 	//course - 1
-	public Course findById(int id) {
-		for(Course course : courses) {
+	public CourseBean findById(int id) {
+		for(CourseBean course : courses) {
 			if(course.getId()==id)
 				return course;
 		}
@@ -37,22 +38,22 @@ public class CourseDetailsService {
 	}
 	
 	//courses
-	public List<Course> findAll() {
+	public List<CourseBean> findAll() {
 		return courses;
 	}
 	
 	//delete course
-	public int deleteById(int id) {
+	public StatusBean deleteById(int id) {
 		
-		Iterator<Course> iterator = courses.iterator();
+		Iterator<CourseBean> iterator = courses.iterator();
 		while (iterator.hasNext()) {
-			Course course = iterator.next();
+			CourseBean course = iterator.next();
 			if (course.getId() == id) {
 				iterator.remove();
-				return 1;
+				return StatusBean.SUCCESS;
 			}
 		}
-		return 0;
+		return StatusBean.FAILURE;
 	}
 	
 	//updating course and new course
