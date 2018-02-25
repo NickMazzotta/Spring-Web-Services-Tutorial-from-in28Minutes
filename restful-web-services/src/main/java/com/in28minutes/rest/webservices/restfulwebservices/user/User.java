@@ -45,6 +45,10 @@ public class User {
 		this.name = name;
 		this.birthDate = birthDate;
 	}
+
+	protected User() {
+		
+	}
 	
 	
 }
