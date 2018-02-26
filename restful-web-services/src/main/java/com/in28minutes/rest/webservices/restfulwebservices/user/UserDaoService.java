@@ -9,15 +9,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDaoService {
 	
+	// dummy users data
 	private static List<User> users = new ArrayList<>();
-	
 	private static int usersCount = 3;
-	
 	static {
 		users.add(new User(1, "Adam", new Date()));
 		users.add(new User(2, "Eve", new Date()));
 		users.add(new User(3, "Jack", new Date()));
 	}
+	
+	
+	// Methods
 	
 	public List<User> findAll() {
 		return users;
