@@ -31,13 +31,13 @@ public class UserController {
 		return users;
 	}
 	
-	//GET /users/{id}
-	//retrieveUser(int id)
-	@GetMapping(path="/users/{id}")
-	public User retrieveUser(@PathVariable int id) {
-		User user = service.findOne(id);
+	//GET /users/{userId}
+	//retrieveUser(int userId)
+	@GetMapping(path="/users/{userId}")
+	public User retrieveUser(@PathVariable int userId) {
+		User user = service.findOne(userId);
 		if(user == null)
-			throw new UserNotFoundException("id-" + id);
+			throw new UserNotFoundException("userId-" + userId);
 		return user;
 	}
 	
@@ -48,11 +48,11 @@ public class UserController {
 		User savedUser = service.save(user);
 		
 		if (savedUser == null)
-			throw new UserNotFoundException("id-" + savedUser.getId());
+			throw new UserNotFoundException("userId-" + savedUser.getUserId());
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-			.path("/{id}")
-			.buildAndExpand(savedUser.getId())
+			.path("/{userId}")
+			.buildAndExpand(savedUser.getUserId())
 			.toUri();
 		return ResponseEntity.created(location).build();
 	}

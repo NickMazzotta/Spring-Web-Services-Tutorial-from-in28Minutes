@@ -26,16 +26,16 @@ public class UserDaoService {
 	}
 	
 	public User save(User user) {
-		if(user.getId()==null) {
-			user.setId(++usersCount);
+		if(user.getUserId()==null) {
+			user.setUserId(++usersCount);
 		}
 		users.add(user);
 		return user;
 	}
 	
-	public User findOne(int id) {
+	public User findOne(int userId) {
 		for(User user: users) {
-			if(user.getId() == id)
+			if(user.getUserId() == userId)
 				return user;
 		}
 		return null;

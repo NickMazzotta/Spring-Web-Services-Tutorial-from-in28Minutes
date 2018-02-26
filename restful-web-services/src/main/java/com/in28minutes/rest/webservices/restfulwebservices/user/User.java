@@ -3,27 +3,30 @@ package com.in28minutes.rest.webservices.restfulwebservices.user;
 import java.util.Date;
 import java.util.List;
 
+import com.in28minutes.rest.webservices.restfulwebservices.post.Post;
+
 public class User {
 	
-	private Integer id;
+	private Integer userId;
 	private String name;
 	private Date birthDate;
 	private List<Post> posts;
 	
-	public List<Post> getPosts() {
+	public List<Post> getAllPosts() {
 		return posts;
 	}
 	
-	public void addPost(Post post) {
+	public Post addPost(Post post) {
 		this.posts.add(post);
+		return post;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserId(Integer id) {
+		this.userId = userId;
 	}
 
 	public String getName() {
@@ -44,12 +47,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		return String.format("User [id=%s, name=%s, birthDate=%s]", id, name, birthDate);
+		return String.format("User [userId=%s, name=%s, birthDate=%s]", userId, name, birthDate);
 	}
 
-	public User(Integer id, String name, Date birthDate) {
+	public User(Integer userId, String name, Date birthDate) {
 		super();
-		this.id = id;
+		this.userId = userId;
 		this.name = name;
 		this.birthDate = birthDate;
 	}
