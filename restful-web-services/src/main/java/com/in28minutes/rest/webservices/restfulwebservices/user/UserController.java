@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.in28minutes.rest.webservices.restfulwebservices.exception.PostNotFoundException;
+import com.in28minutes.rest.webservices.restfulwebservices.exception.UserNotFoundException;
+
 @RestController
 public class UserController {
 
@@ -22,7 +25,10 @@ public class UserController {
 	//retrieveAllUsers
 	@GetMapping(path="/users")
 	public List<User> retrieveAllUsers() {
-		return service.findAll();
+		List<User> users = service.findAll();
+		if (users.isEmpty())
+			throw new UserNotFoundException("Users list empty");
+		return users;
 	}
 	
 	//GET /users/{id}
@@ -41,10 +47,14 @@ public class UserController {
 	public ResponseEntity<Object> createUser(@RequestBody User user) {
 		User savedUser = service.save(user);
 		
+		if (savedUser == null)
+			throw new UserNotFoundException("id-" + savedUser.getId());
+		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}")
 			.buildAndExpand(savedUser.getId())
 			.toUri();
 		return ResponseEntity.created(location).build();
 	}
+
 }

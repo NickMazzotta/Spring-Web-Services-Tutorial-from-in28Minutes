@@ -1,14 +1,22 @@
 package com.in28minutes.rest.webservices.restfulwebservices.user;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 	
 	private Integer id;
-	
 	private String name;
-	
 	private Date birthDate;
+	private List<Post> posts;
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+	
+	public void addPost(Post post) {
+		this.posts.add(post);
+	}
 
 	public Integer getId() {
 		return id;
