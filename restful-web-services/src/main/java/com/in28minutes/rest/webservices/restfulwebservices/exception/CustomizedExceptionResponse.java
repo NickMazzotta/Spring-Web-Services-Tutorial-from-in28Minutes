@@ -2,7 +2,7 @@ package com.in28minutes.rest.webservices.restfulwebservices.exception;
 
 import java.util.Date;
 
-public class ExceptionResponse {
+public class CustomizedExceptionResponse {
 
 	//timestamp
 	//message
@@ -12,7 +12,7 @@ public class ExceptionResponse {
 	private String message;
 	private String details;
 	
-	public ExceptionResponse(Date timestamp, String message, String details) {
+	public CustomizedExceptionResponse(Date timestamp, String message, String details) {
 		super();
 		this.timestamp = timestamp;
 		this.message = message;
