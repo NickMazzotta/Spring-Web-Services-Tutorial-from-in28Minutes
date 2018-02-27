@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,11 +39,23 @@ public class UserController {
 	//GET /users/{userId}
 	//retrieveUser(int userId)
 	@GetMapping(path="/users/{userId}")
-	public User retrieveUser(@PathVariable int userId) {
+	public Resource<User> retrieveUser(@PathVariable int userId) {
 		User user = service.findOne(userId);
 		if(user == null)
 			throw new UserNotFoundException("userId-" + userId);
-		return user;
+		
+		
+		
+		//HATEOAS
+		// want to return a link to users with this response
+		Resource<User> resource = new Resource<User>(user);
+		
+		ControllerLinkBuilder linkTo = ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(this.getClass()).retrieveAllUsers());
+		resource.add(linkTo.withRel("all-users"));
+		
+		
+		return resource;
 	}
 	
 	//input - details of user
